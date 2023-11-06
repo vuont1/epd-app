@@ -12,7 +12,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.bigText}>EPD App von der Post Sanela</Text>
+      <Text style={styles.bigText}>Home Bereich</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handleMedicationPress}>
           <Text style={styles.buttonText}>Medikation</Text>

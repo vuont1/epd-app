@@ -1,35 +1,40 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import HomeScreen from './components/HomeScreen';
 import MedicationScreen from './components/MedicationScreen';
 import VaccinationScreen from './components/VaccinationScreen';
+import HomeScreen from './components/HomeScreen';
 
-const Stack = createStackNavigator({
-  Home: HomeScreen,
-  Medikation: MedicationScreen,
-  Impfung: VaccinationScreen,
-});
+const Stack = createStackNavigator();
 
-const AppContainer = createAppContainer(Stack);
-
-export default function App() {
+const App = () => {
   return (
-    <>
-      <StatusBar style="auto" />
-      <AppContainer />
-    </>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            headerTitle: 'EPD-App',
+            headerStyle: {
+              backgroundColor: '#00968F', // Header background color
+            },
+            headerTitleStyle: {
+              color: 'white', // Text color
+            },
+          }}
+        />
+        <Stack.Screen name="Medication" component={MedicationScreen} />
+        <Stack.Screen name="Vaccination" component={VaccinationScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  
 });
+
+export default App;
