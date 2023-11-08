@@ -1,25 +1,40 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import * as React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StyleSheet } from 'react-native';
+
+import offeneScreen from './vaccination/OffeneScreen'; // Import your AktuellScreen component
+import abgeschlosseneScreen from './vaccination/AbgeschlosseneScreen'; // Import your HistorieScreen component
+import styles from './Styles';
+
+const Tab = createBottomTabNavigator();
 
 const VaccinationScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcomeText}>Impfung Page</Text>
-    </View>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: styles.tabContainer,
+        tabBarLabelStyle: styles.inactiveTabLabel,
+        activeTintColor: styles.activeTabLabel.color,
+        inactiveTintColor: styles.inactiveTabLabel.color,
+        indicatorStyle: { backgroundColor: styles.activeTabLabel.color },
+      }}
+    >
+      <Tab.Screen
+        name="Offene"
+        component={offeneScreen}
+        options={{
+          tabBarLabel: 'Offene',
+        }}
+      />
+      <Tab.Screen
+        name="Abgeschlossene"
+        component={abgeschlosseneScreen}
+        options={{
+          tabBarLabel: 'Abgeschlossene',
+        }}
+      />
+    </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  welcomeText: {
-    fontSize: 32,
-    marginBottom: 20,
-    marginTop: 20,
-  },
-});
 
 export default VaccinationScreen;
