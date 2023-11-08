@@ -26,8 +26,32 @@ const App = () => {
             },
           }}
         />
-        <Stack.Screen name="Medication" component={MedicationScreen} />
-        <Stack.Screen name="Vaccination" component={VaccinationScreen} />
+        <Stack.Screen
+          name="Medication"
+          component={MedicationScreen}
+          options={{
+            headerTitle: 'EPD-App',
+            headerStyle: {
+              backgroundColor: '#00968F', // Header background color
+            },
+            headerTitleStyle: {
+              color: 'white', // Text color
+            },
+          }}
+        />
+        <Stack.Screen
+          name="Vaccination"
+          component={VaccinationScreen}
+          options={{
+            headerTitle: 'EPD-App',
+            headerStyle: {
+              backgroundColor: '#00968F', // Header background color
+            },
+            headerTitleStyle: {
+              color: 'white', // Text color
+            },
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
