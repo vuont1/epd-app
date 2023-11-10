@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-
-
 const AktuellScreen = () => {
   // Dummy data for medications
   const medicationsData = [
@@ -13,12 +11,12 @@ const AktuellScreen = () => {
       name: 'Medication 1',
       dosage: '2 pills',
       number: '30', // New property
-    },
+    }, 
     {
       id: '2',
       date: '2023-11-12 to 2023-11-18',
       image: 'https://example.com/medication2.jpg',
-      name: 'Medication 2',
+      name: 'Dafalgan 2',
       dosage: '1 pill',
       number: '30', // New property
     },
