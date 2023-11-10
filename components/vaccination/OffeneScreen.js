@@ -8,5 +8,5 @@ const OffeneScreen = () => {
     </View>
   );
 };
-
+  //  <Image source={{ uri: item.image }} style={styles.medicationImage} />
 export default OffeneScreen;
