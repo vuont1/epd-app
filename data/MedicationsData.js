@@ -16,10 +16,12 @@ const medicationsData = [
       name: 'Dafalgan 2',
       dosage: '1 pill',
       number: '30',
-      description: 'This is some additional information for the medication.',
+      description: 'Dafalgan is a brand name for a medication that contains the active ingredient paracetamol, also known as acetaminophen. Paracetamol is a widely used analgesic (pain reliever) and antipyretic (fever reducer). It is commonly prescribed to alleviate mild to moderate pain and reduce fever.',
     },
     // Add more dummy data as needed
   ];
   
+// <Image source={{ uri: item.image }} style={styles.medicationImage} /> (ID 2)
+
   export default medicationsData;
   
