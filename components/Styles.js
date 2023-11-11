@@ -36,6 +36,8 @@ const styles = StyleSheet.create({
   },
   largeText: {
     fontSize: 18,
+    paddingTop: 3,
+    paddingBottom: 3,
   },
   buttonContainer: {
     flexDirection: 'row',

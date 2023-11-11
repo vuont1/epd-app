@@ -47,7 +47,7 @@ const AktuellScreen = () => {
     // Generate dummy data for the pop-up
     const dummyExtraData = {
       id: '1',
-      title: medication.name,
+      name: medication.name,
       description: medication.description,
     };
     setExtraData(dummyExtraData);
@@ -78,7 +78,7 @@ const AktuellScreen = () => {
           <View style={styles.modalContent}>
             {extraData && (
               <>
-                <Text style={styles.modalTitle}>{extraData.title}</Text>
+                <Text style={styles.modalTitle}>{extraData.name}</Text>
                 <Text style={styles.largeText}>{extraData.description}</Text>
                 <Button title="Close" onPress={closeModal} />
               </>
