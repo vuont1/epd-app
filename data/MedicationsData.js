@@ -7,6 +7,7 @@ const medicationsData = [
       name: 'Medication 1',
       dosage: '2 pills',
       number: '30',
+      description: 'This is some additional information for the medication.',
     },
     {
       id: '2',
@@ -15,6 +16,7 @@ const medicationsData = [
       name: 'Dafalgan 2',
       dosage: '1 pill',
       number: '30',
+      description: 'This is some additional information for the medication.',
     },
     // Add more dummy data as needed
   ];
