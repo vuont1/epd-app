@@ -1,4 +1,5 @@
 
+// Dummy JSON data
 const medicationsData = [
     {
       id: '1',
