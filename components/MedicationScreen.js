@@ -4,7 +4,6 @@ import { StyleSheet } from 'react-native';
 
 import AktuellScreen from './medication/AktuellScreen'; // Import your AktuellScreen component
 import HistorieScreen from './medication/HistorieScreen'; // Import your HistorieScreen component
-import TestScreen from './medication/TestScreen'; // Import your HistorieScreen component
 import styles from './Styles';
 
 const Tab = createBottomTabNavigator();
@@ -32,13 +31,6 @@ const MedicationScreen = () => {
         component={HistorieScreen}
         options={{
           tabBarLabel: 'Historie',
-        }}
-      />
-      <Tab.Screen
-        name="Test"
-        component={TestScreen}
-        options={{
-          tabBarLabel: 'Test',
         }}
       />
     </Tab.Navigator>
