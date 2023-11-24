@@ -14,7 +14,7 @@ const HistorieScreen = () => {
       <View style={styles.medicationDetails}>
         <View style={styles.medicationInfo}>
           <Text style={styles.medicationName}>{item.name}</Text>
-          <Text style={styles.largeText}>{`Date from ${item.date}`}</Text>
+          <Text style={styles.largeText}>{`Datum: ${item.dateFrom} bis ${item.dateTill}`}</Text>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity

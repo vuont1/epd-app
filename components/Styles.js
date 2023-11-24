@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
   medicationName: {
     fontWeight: 'bold',
     fontSize: 20,
+    paddingBottom: 3
   },
   largeText: {
     fontSize: 18,

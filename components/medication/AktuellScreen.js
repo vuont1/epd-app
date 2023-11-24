@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity, Modal, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import styles from '../Styles';
 import medicationsData from '../../data/MedicationsData';  // Import the data
 
-const AktuellScreen = () => {
+const AktuellScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [extraData, setExtraData] = useState(null);
 
@@ -14,9 +15,9 @@ const AktuellScreen = () => {
       <View style={styles.medicationDetails}>
         <View style={styles.medicationInfo}>
           <Text style={styles.medicationName}>{item.name}</Text>
-          <Text style={styles.largeText}>{`Date from ${item.date}`}</Text>
-          <Text style={styles.largeText}>{`Dosis: ${item.dosage}`}</Text>
-          <Text style={styles.largeText}>{`Number: ${item.number}`}</Text>
+          <Text style={styles.largeText}>{`Datum: ${item.dateFrom} bis ${item.dateTill}`}</Text>
+          <Text style={styles.largeText}>{`Anzahl Stücke: ${item.pieces} ${item.unit}`}</Text>
+          <Text style={styles.largeText}>{`Dosierung: ${item.dosage}`}</Text>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -39,6 +40,7 @@ const AktuellScreen = () => {
   const handleReminderPress = (medication) => {
     // Implement your logic for the "Reminder" button press
     console.log(`Set reminder for ${medication.name}`);
+    navigation.navigate('Reminder', { medication }); // Pass medication object as a route parameter
   };
 
   const handleInfoPress = (medication) => {

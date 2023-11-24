@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MedicationScreen from './components/MedicationScreen';
 import VaccinationScreen from './components/VaccinationScreen';
 import HomeScreen from './components/HomeScreen';
+import ReminderScreen from './components/medication/ReminderScreen';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,19 @@ const App = () => {
         <Stack.Screen
           name="Vaccination"
           component={VaccinationScreen}
+          options={{
+            headerTitle: 'EPD-App',
+            headerStyle: {
+              backgroundColor: '#00968F', // Header background color
+            },
+            headerTitleStyle: {
+              color: 'white', // Text color
+            },
+          }}
+        />
+        <Stack.Screen
+          name="Reminder"
+          component={ReminderScreen}
           options={{
             headerTitle: 'EPD-App',
             headerStyle: {
