@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-
+import { View, Text, TouchableOpacity, StyleSheet, Modal, Platform } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const ReminderScreen = ({ route }) => {
   const { medication } = route.params; // Retrieve the passed medication object
@@ -8,6 +8,12 @@ const ReminderScreen = ({ route }) => {
   // State to manage the display of day selection
   const [showDays, setShowDays] = useState(false);
   const [selectedDays, setSelectedDays] = useState([]);
+
+  const [chosenDate, setChosenDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const [chosenEndDate, setChosenEndDate] = useState(new Date());
+  const [showEndDatePicker, setShowEndDatePicker] = useState(false);
 
   const toggleShowDays = () => {
     setShowDays(!showDays);
@@ -94,7 +100,65 @@ const ReminderScreen = ({ route }) => {
           <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>Alle x-Stunden</Text>
           </TouchableOpacity>
-        </View>
+          </View>
+          <TouchableOpacity style={styles.datePickerButton} onPress={() => setShowDatePicker(true)}>
+          <Text style={styles.datePickerText}>Datum Anfang: {chosenDate.toLocaleDateString()}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.datePickerButton} onPress={() => setShowEndDatePicker(true)}>
+          <Text style={styles.datePickerText}>Datum Ende: {chosenEndDate.toLocaleDateString()}</Text>
+        </TouchableOpacity>
+        <Modal // It's a built-in modal which pops up with the spinner
+          visible={showDatePicker}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setShowDatePicker(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.datePickerContainer}>
+              <DateTimePicker
+                value={chosenDate}
+                mode="date"
+                display="spinner" 
+                onChange={(event, selectedDate) => {
+                  setShowDatePicker(false);
+                  if (selectedDate) {
+                    setChosenDate(selectedDate);
+                  }
+                }}
+                style={styles.datePicker} // Customize the picker's style
+              />
+            </View>
+            <TouchableOpacity style={styles.closeModalButton} onPress={() => setShowDatePicker(false)}>
+              <Text style={styles.closeModalText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal
+          visible={showEndDatePicker}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setShowEndDatePicker(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.datePickerContainer}>
+              <DateTimePicker
+                value={chosenEndDate}
+                mode="date"
+                display="spinner" // For Android, use spinner display
+                onChange={(event, selectedDate) => {
+                  setShowEndDatePicker(false);
+                  if (selectedDate) {
+                    setChosenEndDate(selectedDate);
+                  }
+                }}
+                style={styles.datePicker} // Customize the picker's style
+              />
+            </View>
+            <TouchableOpacity style={styles.closeModalButton} onPress={() => setShowEndDatePicker(false)}>
+              <Text style={styles.closeModalText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
       </View>
     </View>
   );
@@ -111,7 +175,7 @@ const styles = StyleSheet.create({
   stepText: {
     fontSize: 16,
     color: 'darkgrey',
-    marginBottom: 10,
+    marginBottom: 15,
     textAlign: 'center', // Center the text
   },
   title: {
@@ -161,6 +225,50 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  // ... existing styles ...
+  datePickerButton: {
+    marginTop: 20,
+    padding: 15,
+    backgroundColor: '#33ABA5',
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  datePickerText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  closeModalButton: {
+    padding: 15,
+    backgroundColor: 'red',
+    alignItems: 'center',
+  },
+  closeModalText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  datePickerContainer: {
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 20,
+  },
+  datePicker: {
+    width: '80%', // Adjust width as needed
+    height: 300, // Adjust height as needed
+    backgroundColor: 'white',
   },
 });
 
