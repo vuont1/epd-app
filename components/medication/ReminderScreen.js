@@ -18,8 +18,11 @@ const ReminderScreen = ({ route }) => {
   const [chosenEndDate, setChosenEndDate] = useState(new Date());
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   // Alle x-Tage
-  const [showIntervalPicker, setShowIntervalPicker] = useState(false);
-  const [selectedInterval, setSelectedInterval] = useState(1); // Default value: 1
+  const [showIntervalPicker, setShowIntervalPicker] = useState(false); 
+  const [selectedInterval, setSelectedInterval] = useState(1); 
+  // Bestimmte Tage
+  const [showDaysPicker, setShowDaysPicker] = useState(false); 
+  const [selectedDaysInterval, setSelectedDaysInterval] = useState(); 
 
   const toggleShowDays = () => {
     setShowDays(!showDays);
@@ -100,8 +103,8 @@ const ReminderScreen = ({ route }) => {
         <TouchableOpacity style={styles.button} onPress={() => setShowIntervalPicker(true)}>
           <Text style={styles.buttonText}>Alle x-Tage: {selectedInterval}</Text>
         </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Alle x-Stunden</Text>
+          <TouchableOpacity style={styles.button} onPress={() => setShowDaysPicker(true)}>
+            <Text style={styles.buttonText}>Alle x-Stunden: {selectedDaysInterval}</Text>
           </TouchableOpacity>
           </View>
           <TouchableOpacity style={styles.datePickerButton} onPress={() => setShowDatePicker(true)}>
@@ -165,7 +168,7 @@ const ReminderScreen = ({ route }) => {
           </View>
         </Modal>
 
-        <Modal // Spinner Display for Datum Ende
+        <Modal // Spinner Display for Alle x-Tage
           visible={showIntervalPicker}
           animationType="slide"
           transparent={true}
@@ -188,6 +191,35 @@ const ReminderScreen = ({ route }) => {
               </Picker>
             </View>
             <TouchableOpacity style={styles.closeModalButton} onPress={() => setShowIntervalPicker(false)}>
+              <Text style={styles.closeModalText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+
+        <Modal // Spinner Display for Alle x-Stunden
+          visible={showDaysPicker}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setShowDaysPicker(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.datePickerContainer}>
+              <Picker
+                selectedValue={selectedDaysInterval}
+                onValueChange={(itemValue) => {
+                  setSelectedDaysInterval(itemValue);
+                  setShowDaysPicker(false); // Close modal when a value is selected
+                }}
+                style={styles.datePicker}
+              >
+                {Array.from({ length: 24 }, (_, index) => {
+                  const value = index * 0.5 + 0.5; // Increment by 0.5 starting from 0.5
+                  const formattedValue = value % 1 === 0 ? value.toFixed(0) : value.toFixed(1); // value.toFixed(0) = string to no decimal places
+                  return <Picker.Item key={formattedValue.toString()} label={`${formattedValue}`} value={formattedValue} />;
+                })}
+              </Picker>
+            </View>
+            <TouchableOpacity style={styles.closeModalButton} onPress={() => setShowDaysPicker(false)}>
               <Text style={styles.closeModalText}>Close</Text>
             </TouchableOpacity>
           </View>
