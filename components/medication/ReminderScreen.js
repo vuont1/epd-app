@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { Picker } from '@react-native-picker/picker'; // Import Picker from the correct package
 
 const ReminderScreen = ({ route }) => {
   const { medication } = route.params; // Retrieve the passed medication object
+  // Now you can use the medication object in this screen
+  console.log('Received medication:', medication);
 
-  // State to manage the display of day selection
+  // Bestimmte Tage
   const [showDays, setShowDays] = useState(false);
   const [selectedDays, setSelectedDays] = useState([]);
-
+  // Datum Anfang
   const [chosenDate, setChosenDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-
+  // Datum Ende
   const [chosenEndDate, setChosenEndDate] = useState(new Date());
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+  // Alle x-Tage
+  const [showIntervalPicker, setShowIntervalPicker] = useState(false);
+  const [selectedInterval, setSelectedInterval] = useState(1); // Default value: 1
 
   const toggleShowDays = () => {
     setShowDays(!showDays);
@@ -28,9 +34,6 @@ const ReminderScreen = ({ route }) => {
       setSelectedDays([...selectedDays, day]);
     }
   };
-
-  // Now you can use the medication object in this screen
-  console.log('Received medication:', medication);
 
   return (
     <View style={styles.container}>
@@ -94,9 +97,9 @@ const ReminderScreen = ({ route }) => {
           </View>
         )}
         <View style={styles.buttonRow}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Alle x-Tage</Text>
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => setShowIntervalPicker(true)}>
+          <Text style={styles.buttonText}>Alle x-Tage: {selectedInterval}</Text>
+        </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>Alle x-Stunden</Text>
           </TouchableOpacity>
@@ -107,7 +110,8 @@ const ReminderScreen = ({ route }) => {
         <TouchableOpacity style={styles.datePickerButton} onPress={() => setShowEndDatePicker(true)}>
           <Text style={styles.datePickerText}>Datum Ende: {chosenEndDate.toLocaleDateString()}</Text>
         </TouchableOpacity>
-        <Modal // It's a built-in modal which pops up with the spinner
+        
+        <Modal // Spinner Display for Datum Anfang
           visible={showDatePicker}
           animationType="slide"
           transparent={true}
@@ -133,7 +137,8 @@ const ReminderScreen = ({ route }) => {
             </TouchableOpacity>
           </View>
         </Modal>
-        <Modal
+
+        <Modal // Spinner Display for Datum Ende
           visible={showEndDatePicker}
           animationType="slide"
           transparent={true}
@@ -159,6 +164,35 @@ const ReminderScreen = ({ route }) => {
             </TouchableOpacity>
           </View>
         </Modal>
+
+        <Modal // Spinner Display for Datum Ende
+          visible={showIntervalPicker}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setShowIntervalPicker(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.datePickerContainer}>
+              <Picker
+                selectedValue={selectedInterval}
+                onValueChange={(itemValue) => {
+                  setSelectedInterval(itemValue);
+                  setShowIntervalPicker(false); // Close modal when a value is selected
+                }}
+                style={styles.datePicker}
+              >
+                {Array.from({ length: 100 }, (_, index) => {
+                  const value = index + 1;
+                  return <Picker.Item key={value.toString()} label={`${value}`} value={value} />;
+                })}
+              </Picker>
+            </View>
+            <TouchableOpacity style={styles.closeModalButton} onPress={() => setShowIntervalPicker(false)}>
+              <Text style={styles.closeModalText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+
       </View>
     </View>
   );
@@ -253,11 +287,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   datePickerContainer: {
     backgroundColor: 'white',
