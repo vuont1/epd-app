@@ -23,6 +23,9 @@ const ReminderScreen = ({ route }) => {
   // Bestimmte Tage
   const [showDaysPicker, setShowDaysPicker] = useState(false); 
   const [selectedDaysInterval, setSelectedDaysInterval] = useState(); 
+  // Täglich Uhrzeit
+  const [chosenTime, setChosenTime] = useState(new Date());
+  const [showTimePicker, setShowTimePicker] = useState(false);
 
   const toggleShowDays = () => {
     setShowDays(!showDays);
@@ -46,9 +49,10 @@ const ReminderScreen = ({ route }) => {
       </View>
       <View style={styles.buttonContainer}>
         <View style={styles.buttonRow}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Täglich</Text>
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => setShowTimePicker(true)}>
+          <Text style={styles.buttonText}>Täglich Uhrzeit: {chosenTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
+        </TouchableOpacity>
+        
           <TouchableOpacity style={styles.button} onPress={toggleShowDays}>
             <Text style={styles.buttonText}>Bestimmte Tage</Text>
           </TouchableOpacity>
@@ -103,11 +107,11 @@ const ReminderScreen = ({ route }) => {
         <TouchableOpacity style={styles.button} onPress={() => setShowIntervalPicker(true)}>
           <Text style={styles.buttonText}>Alle x-Tage: {selectedInterval}</Text>
         </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => setShowDaysPicker(true)}>
-            <Text style={styles.buttonText}>Alle x-Stunden: {selectedDaysInterval}</Text>
-          </TouchableOpacity>
-          </View>
-          <TouchableOpacity style={styles.datePickerButton} onPress={() => setShowDatePicker(true)}>
+        <TouchableOpacity style={styles.button} onPress={() => setShowDaysPicker(true)}>
+          <Text style={styles.buttonText}>Alle x-Stunden: {selectedDaysInterval}</Text>
+        </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.datePickerButton} onPress={() => setShowDatePicker(true)}>
           <Text style={styles.datePickerText}>Datum Anfang: {chosenDate.toLocaleDateString()}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.datePickerButton} onPress={() => setShowEndDatePicker(true)}>
@@ -220,6 +224,33 @@ const ReminderScreen = ({ route }) => {
               </Picker>
             </View>
             <TouchableOpacity style={styles.closeModalButton} onPress={() => setShowDaysPicker(false)}>
+              <Text style={styles.closeModalText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+
+        <Modal // Spinner Display for Täglich Uhrzeit
+          visible={showTimePicker}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setShowTimePicker(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.datePickerContainer}>
+              <DateTimePicker
+                value={chosenTime}
+                mode="time" // Set mode to time for clock display
+                display="spinner"
+                is24Hour={true} // Set 24-hour format
+                onChange={(event, selectedTime) => {
+                  if (selectedTime) {
+                    setChosenTime(selectedTime);
+                  }
+                }}
+                style={styles.datePicker}
+              />
+            </View>
+            <TouchableOpacity style={styles.closeModalButton} onPress={() => setShowTimePicker(false)}>
               <Text style={styles.closeModalText}>Close</Text>
             </TouchableOpacity>
           </View>
