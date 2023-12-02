@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Modal, Platform } from 'react
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker'; // Import Picker from the correct package
 
-const ReminderScreen = ({ route }) => {
+const ReminderScreen = ({ navigation, route }) => {
   const { medication } = route.params; // Retrieve the passed medication object
   // Now you can use the medication object in this screen
   console.log('Received medication:', medication);
@@ -19,7 +19,7 @@ const ReminderScreen = ({ route }) => {
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   // Alle x-Tage
   const [showIntervalPicker, setShowIntervalPicker] = useState(false); 
-  const [selectedInterval, setSelectedInterval] = useState(1); 
+  const [selectedInterval, setSelectedInterval] = useState(); 
   // Bestimmte Tage
   const [showDaysPicker, setShowDaysPicker] = useState(false); 
   const [selectedDaysInterval, setSelectedDaysInterval] = useState(); 
@@ -38,6 +38,30 @@ const ReminderScreen = ({ route }) => {
     } else {
       // Select it
       setSelectedDays([...selectedDays, day]);
+
+      // Reset the others
+      setChosenDate(new Date());
+      setShowDatePicker(false);
+      setChosenEndDate(new Date());
+      setShowEndDatePicker(false);
+      setShowIntervalPicker(false);
+      setSelectedInterval(false);
+      setShowDaysPicker(false);
+      setSelectedDaysInterval(false);
+      setChosenTime(new Date());
+      setShowTimePicker(false);
+    }
+  };
+
+  const handleEndDateChange = (selectedEndDate) => {
+    if (selectedEndDate < chosenDate) {
+      // Handle the case where the chosen end date is earlier than the chosen start date
+      // For example, you could show an error message or prevent setting the end date
+      console.log("End date can't be earlier than start date");
+      // You might want to set the end date to the start date or take appropriate action
+      // setChosenEndDate(chosenDate); // Uncomment this line to set end date to start date
+    } else {
+      setChosenEndDate(selectedEndDate);
     }
   };
 
@@ -117,7 +141,15 @@ const ReminderScreen = ({ route }) => {
         <TouchableOpacity style={styles.datePickerButton} onPress={() => setShowEndDatePicker(true)}>
           <Text style={styles.datePickerText}>Datum Ende: {chosenEndDate.toLocaleDateString()}</Text>
         </TouchableOpacity>
-        
+        <View style={styles.bottomButtons}>
+          <TouchableOpacity style={[styles.bottomButton, styles.cancelButton]} onPress={() =>  navigation.navigate('Medication')}>
+            <Text style={styles.buttonText}>Abbrechen</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.bottomButton, styles.continueButton]}>
+            <Text style={styles.buttonText}>Weiter</Text>
+          </TouchableOpacity>
+        </View>
+
         <Modal // Spinner Display for Datum Anfang
           visible={showDatePicker}
           animationType="slide"
@@ -160,7 +192,7 @@ const ReminderScreen = ({ route }) => {
                 onChange={(event, selectedDate) => {
                   setShowEndDatePicker(false);
                   if (selectedDate) {
-                    setChosenEndDate(selectedDate);
+                    handleEndDateChange(selectedDate); // Call the function to handle end date change
                   }
                 }}
                 style={styles.datePicker} // Customize the picker's style
@@ -185,6 +217,14 @@ const ReminderScreen = ({ route }) => {
                 onValueChange={(itemValue) => {
                   setSelectedInterval(itemValue);
                   setShowIntervalPicker(false); // Close modal when a value is selected
+
+                  // Reset the others
+                  setShowDays(false)
+                  setSelectedDays([]);
+                  setShowDaysPicker(false);
+                  setSelectedDaysInterval(false);
+                  setChosenTime(new Date());
+                  setShowTimePicker(false);
                 }}
                 style={styles.datePicker}
               >
@@ -213,6 +253,14 @@ const ReminderScreen = ({ route }) => {
                 onValueChange={(itemValue) => {
                   setSelectedDaysInterval(itemValue);
                   setShowDaysPicker(false); // Close modal when a value is selected
+
+                  // Reset the others
+                  setShowDays(false)
+                  setSelectedDays([]);
+                  setSelectedInterval(false);
+                  setShowIntervalPicker(false);
+                  setChosenTime(new Date());
+                  setShowTimePicker(false);
                 }}
                 style={styles.datePicker}
               >
@@ -245,6 +293,18 @@ const ReminderScreen = ({ route }) => {
                 onChange={(event, selectedTime) => {
                   if (selectedTime) {
                     setChosenTime(selectedTime);
+
+                    // Reset the others
+                    setShowDays(false);
+                    setSelectedDays([]);
+                    setChosenDate(new Date());
+                    setShowDatePicker(false);
+                    setChosenEndDate(new Date());
+                    setShowEndDatePicker(false);
+                    setShowIntervalPicker(false);
+                    setSelectedInterval(false);
+                    setShowDaysPicker(false);
+                    setSelectedDaysInterval(false);
                   }
                 }}
                 style={styles.datePicker}
@@ -361,6 +421,32 @@ const styles = StyleSheet.create({
     width: '80%', // Adjust width as needed
     height: 300, // Adjust height as needed
     backgroundColor: 'white',
+  },
+  // BottomButton
+  bottomButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  bottomButton: {
+    flex: 1,
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  cancelButton: {
+    backgroundColor: 'red',
+    marginRight: 10,
+  },
+  continueButton: {
+    backgroundColor: 'green',
+    marginLeft: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
   },
 });
 
