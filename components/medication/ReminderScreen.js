@@ -9,8 +9,8 @@ const ReminderScreen = ({ navigation, route }) => {
   console.log('Received medication:', medication);
 
   // Bestimmte Tage
-  const [showDays, setShowDays] = useState(false);
   const [selectedDays, setSelectedDays] = useState([]);
+  const [showDays, setShowDays] = useState(false);
   // Datum Anfang
   const [chosenDate, setChosenDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -18,19 +18,31 @@ const ReminderScreen = ({ navigation, route }) => {
   const [chosenEndDate, setChosenEndDate] = useState(new Date());
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   // Alle x-Tage
-  const [showIntervalPicker, setShowIntervalPicker] = useState(false); 
   const [selectedInterval, setSelectedInterval] = useState(); 
+  const [showIntervalPicker, setShowIntervalPicker] = useState(false); 
   // Bestimmte Tage
-  const [showDaysPicker, setShowDaysPicker] = useState(false); 
   const [selectedDaysInterval, setSelectedDaysInterval] = useState(); 
+  const [showDaysPicker, setShowDaysPicker] = useState(false); 
   // Täglich Uhrzeit
   const [chosenTime, setChosenTime] = useState(new Date());
   const [showTimePicker, setShowTimePicker] = useState(false);
-   // State to manage the activation of the Weiter button
-   const [isWeiterActive, setIsWeiterActive] = useState(true); // Initially set it to active
 
   const toggleShowDays = () => {
     setShowDays(!showDays);
+  };
+
+  const handleContinue = () => {
+    const dataToSend = {
+      selectedDays,
+      chosenDate: chosenDate.toISOString(),
+      chosenEndDate: chosenEndDate.toISOString(),
+      selectedInterval,
+      selectedDaysInterval,
+      chosenTime: chosenTime.toISOString(),
+      medication
+    };
+
+    navigation.navigate('Reminder2', { data: dataToSend });
   };
 
   const handleDaySelection = (day) => {
@@ -152,7 +164,9 @@ const ReminderScreen = ({ navigation, route }) => {
           <TouchableOpacity style={[styles.bottomButton, styles.cancelButton]} onPress={() =>  navigation.navigate('Medication')}>
             <Text style={styles.buttonText}>Abbrechen</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.bottomButton, styles.continueButton]}>
+          <TouchableOpacity
+            style={[styles.bottomButton, styles.continueButton]}
+            onPress={() => handleContinue()}>
             <Text style={styles.buttonText}>Weiter</Text>
           </TouchableOpacity>
         </View>
@@ -434,7 +448,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 50,
   },
   bottomButton: {
     flex: 1,

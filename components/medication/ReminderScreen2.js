@@ -1,25 +1,233 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-const ReminderScreen2 = () => {
+const ReminderScreen2 = ({ navigation, route }) => {
+  const { data } = route.params;
+  // Einheit
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedValue, setSelectedValue] = useState();
+  // Menge
+  const [quantity, setQuantity] = useState('');
+  // Hinweis
+  const [showNoteDropdown, setShowNoteDropdown] = useState(false);
+  const [selectedNote, setSelectedNote] = useState();
+
+  useEffect(() => {
+    // Log the received data for testing
+    console.log('Received data:', data);
+    console.log('Received selectedDays:', data.selectedDays);
+    // You can further process or utilize the received data here
+  }, []);
+
+  const dropdownItems = ['Kapsel', 'Injektion', 'Pille', 'Tablette', 'Tropfen', 'Stück'];
+
+  const noteDropdownItems = [
+    'Ereigniszeitpunkt',
+    '10 min vorher',
+    '15 Minuten vorher',
+    '30 min vorher',
+    '1 Stunde vorher',
+    '1 Tag vorher',
+    '2 Tage vorher',
+  ];
+
+  const handleUnitDropdownSelect = (value) => {
+    setSelectedValue(value);
+    setShowDropdown(false);
+    // Handle any additional logic upon selecting a value from the dropdown
+  };
+
+  const handleNoteDropdownSelect = (value) => {
+    setSelectedNote(value);
+    setShowNoteDropdown(false);
+    // Handle any additional logic upon selecting a value from the dropdown
+  };
+
+  const handleQuantityChange = (text) => {
+    if (/^\d+$/.test(text)) {
+      setQuantity(text);
+    }
+    // You can perform further actions as the quantity changes
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Hello, React Native!</Text>
+      <View>
+        <Text style={styles.stepText}>Schritt 2 von 2</Text>
+        <Text style={styles.title}>Einnahmen bestimmen</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.label}>Einheit</Text>
+        <TouchableOpacity onPress={() => setShowDropdown(true)} style={styles.dropdown}>
+          <Text style={styles.dropdownText}>{selectedValue}</Text>
+          <Ionicons name="chevron-down" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.label}>Menge</Text>
+        <TextInput
+          value={quantity}
+          onChangeText={handleQuantityChange}
+          placeholder="Anzahl in Zahl"
+          style={styles.textInput}
+          keyboardType="numeric"
+        />
+      </View>
+      <Modal
+        visible={showDropdown}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setShowDropdown(false)}
+      >
+        <View style={styles.modalContainer}>
+          {dropdownItems.map((item) => (
+            <TouchableOpacity
+              key={item}
+              style={styles.dropdownItem}
+              onPress={() => handleUnitDropdownSelect(item)}
+            >
+              <Text style={styles.dropdownItemText}>{item}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </Modal>
+      <View style={styles.row}>
+        <Text style={styles.label}>Hinweis</Text>
+        <TouchableOpacity onPress={() => setShowNoteDropdown(true)} style={styles.dropdown}>
+          <Text style={styles.dropdownText}>{selectedNote}</Text>
+          <Ionicons name="chevron-down" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
+      <Modal
+        visible={showNoteDropdown}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setShowNoteDropdown(false)}
+      >
+        <View style={styles.modalContainer}>
+          {noteDropdownItems.map((item) => (
+            <TouchableOpacity
+              key={item}
+              style={styles.dropdownItem}
+              onPress={() => handleNoteDropdownSelect(item)}
+            >
+              <Text style={styles.dropdownItemText}>{item}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </Modal>
+      <View style={styles.bottomButtons}>
+        <TouchableOpacity
+          style={[styles.bottomButton, styles.cancelButton]}
+          onPress={() => navigation.navigate('Reminder', { medication: data.medication })}
+        >
+          <Text style={styles.buttonText}>Abbrechen</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.bottomButton, styles.continueButton]}
+          onPress={() => handleContinue()}>
+          <Text style={styles.buttonText}>Abschliessen</Text>
+        </TouchableOpacity>
+        </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  stepText: {
+    fontSize: 16,
+    color: 'darkgrey',
+    marginBottom: 15,
+    textAlign: 'center', // Center the text
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
   container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 40,
+    paddingHorizontal: 20,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  label: {
+    marginRight: 10,
+    fontSize: 18,
+  },
+  dropdown: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 12,
+    width: '50%', // Adjust width as needed
+    justifyContent: 'space-between',
+  },
+  dropdownText: {
+    fontSize: 18,
+  },
+  modalContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  text: {
-    fontSize: 24,
+  dropdownItem: {
+    backgroundColor: '#fff',
+    width: '80%',
+    marginBottom: 10,
+    padding: 12,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#ccc',
+  },
+  dropdownItemText: {
+    fontSize: 18,
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    width: '50%', // Adjust width as needed
+    fontSize: 18,
+  },
+   // BottomButton
+   bottomButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  bottomButton: {
+    flex: 1,
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  cancelButton: {
+    backgroundColor: 'red',
+    marginRight: 10,
+  },
+  continueButton: {
+    backgroundColor: 'green',
+    marginLeft: 10,
+  },
+  buttonText: {
+    color: 'white',
     fontWeight: 'bold',
-    color: '#333',
+    fontSize: 18,
   },
 });
 
