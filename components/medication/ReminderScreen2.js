@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import Toast from 'react-native-toast-message';
 
 const ReminderScreen2 = ({ navigation, route }) => {
   const { data } = route.params;
   // Einheit
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedValue, setSelectedValue] = useState();
+  const [selectedUnit, setSelectedUnit] = useState();
   // Menge
   const [quantity, setQuantity] = useState('');
   // Hinweis
@@ -32,8 +33,31 @@ const ReminderScreen2 = ({ navigation, route }) => {
     '2 Tage vorher',
   ];
 
+  const handleContinue = async () => {
+    // Create a JSON object with the required data
+    const reminderData = {
+      data,
+      selectedUnit,
+      quantity,
+      selectedNote,
+    };
+
+    console.log(reminderData)
+
+     // Show success message for 3 seconds
+     Toast.show({
+      type: 'success',
+      text1: 'Erinnerung erstellt!',
+      visibilityTime: 3000, // 3 seconds
+      autoHide: true,
+    });
+
+    // Navigate back to the "Medication" screen and pass the reminderData
+    navigation.navigate('Medication', { reminderData });
+  };  
+
   const handleUnitDropdownSelect = (value) => {
-    setSelectedValue(value);
+    setSelectedUnit(value);
     setShowDropdown(false);
     // Handle any additional logic upon selecting a value from the dropdown
   };
@@ -60,7 +84,7 @@ const ReminderScreen2 = ({ navigation, route }) => {
       <View style={styles.row}>
         <Text style={styles.label}>Einheit</Text>
         <TouchableOpacity onPress={() => setShowDropdown(true)} style={styles.dropdown}>
-          <Text style={styles.dropdownText}>{selectedValue}</Text>
+          <Text style={styles.dropdownText}>{selectedUnit}</Text>
           <Ionicons name="chevron-down" size={24} color="black" />
         </TouchableOpacity>
       </View>
@@ -209,6 +233,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 50,
+    width: '80%',
   },
   bottomButton: {
     flex: 1,
