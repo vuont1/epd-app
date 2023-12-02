@@ -26,6 +26,8 @@ const ReminderScreen = ({ navigation, route }) => {
   // Täglich Uhrzeit
   const [chosenTime, setChosenTime] = useState(new Date());
   const [showTimePicker, setShowTimePicker] = useState(false);
+   // State to manage the activation of the Weiter button
+   const [isWeiterActive, setIsWeiterActive] = useState(true); // Initially set it to active
 
   const toggleShowDays = () => {
     setShowDays(!showDays);
@@ -53,13 +55,18 @@ const ReminderScreen = ({ navigation, route }) => {
     }
   };
 
+  const handleStartDateChange = (chosenDate) => {
+    if (chosenDate > chosenEndDate) {
+      setChosenDate(chosenEndDate);
+    } else {
+      setChosenDate(chosenDate);
+    }
+  };
+
   const handleEndDateChange = (selectedEndDate) => {
     if (selectedEndDate < chosenDate) {
-      // Handle the case where the chosen end date is earlier than the chosen start date
-      // For example, you could show an error message or prevent setting the end date
       console.log("End date can't be earlier than start date");
-      // You might want to set the end date to the start date or take appropriate action
-      // setChosenEndDate(chosenDate); // Uncomment this line to set end date to start date
+      setChosenEndDate(chosenDate)
     } else {
       setChosenEndDate(selectedEndDate);
     }
@@ -165,7 +172,7 @@ const ReminderScreen = ({ navigation, route }) => {
                 onChange={(event, selectedDate) => {
                   setShowDatePicker(false);
                   if (selectedDate) {
-                    setChosenDate(selectedDate);
+                    handleStartDateChange(selectedDate);
                   }
                 }}
                 style={styles.datePicker} // Customize the picker's style
