@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity, Modal, Button } from 'react-native';
 
 import styles from '../Styles';
-import medicationsData from '../../data/MedicationsData';  // Import the data
+import medicationsData from '../../data/FinishedMedicationData'; 
 
 const HistorieScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);

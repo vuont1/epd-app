@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     height: 90,
     marginRight: 10,
     borderRadius: 10,
+    resizeMode: 'cover'
   },
   medicationInfo: {
     flex: 1,

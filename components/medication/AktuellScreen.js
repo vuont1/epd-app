@@ -3,7 +3,7 @@ import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity, Modal, Butto
 import { useNavigation } from '@react-navigation/native';
 
 import styles from '../Styles';
-import medicationsData from '../../data/MedicationsData';  // Import the data
+import medicationsData from '../../data/MedicationData';  
 
 const AktuellScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
