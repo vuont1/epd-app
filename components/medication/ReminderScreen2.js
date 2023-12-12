@@ -13,13 +13,20 @@ const ReminderScreen2 = ({ navigation, route }) => {
   // Hinweis
   const [showNoteDropdown, setShowNoteDropdown] = useState(false);
   const [selectedNote, setSelectedNote] = useState();
+  // Disable button if not filled completely
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
     // Log the received data for testing
     console.log('Received data:', data);
     console.log('Received selectedDays:', data.selectedDays);
-    // You can further process or utilize the received data here
-  }, []);
+
+    if (selectedUnit && quantity && selectedNote) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  }, [selectedUnit, quantity, selectedNote]);
 
   const dropdownItems = ['Kapsel', 'Injektion', 'Pille', 'Tablette', 'Tropfen', 'Stück'];
 
@@ -59,20 +66,17 @@ const ReminderScreen2 = ({ navigation, route }) => {
   const handleUnitDropdownSelect = (value) => {
     setSelectedUnit(value);
     setShowDropdown(false);
-    // Handle any additional logic upon selecting a value from the dropdown
   };
 
   const handleNoteDropdownSelect = (value) => {
     setSelectedNote(value);
     setShowNoteDropdown(false);
-    // Handle any additional logic upon selecting a value from the dropdown
   };
 
   const handleQuantityChange = (text) => {
     if (/^\d+$/.test(text)) {
       setQuantity(text);
     }
-    // You can perform further actions as the quantity changes
   };
 
   return (
@@ -149,8 +153,14 @@ const ReminderScreen2 = ({ navigation, route }) => {
           <Text style={styles.buttonText}>Abbrechen</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.bottomButton, styles.continueButton]}
-          onPress={() => handleContinue()}>
+          style={[
+            styles.bottomButton,
+            styles.continueButton,
+            isButtonDisabled && { opacity: 0.5 }, // Reduce opacity when disabled
+          ]}
+          onPress={() => handleContinue()}
+          disabled={isButtonDisabled}
+        >
           <Text style={styles.buttonText}>Abschliessen</Text>
         </TouchableOpacity>
         </View>

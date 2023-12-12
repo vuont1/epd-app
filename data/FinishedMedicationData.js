@@ -3,8 +3,8 @@
 const medicationsData = [
     {
       id: '1',
-      dateFrom: '01.01.2023',
-      dateTill: '01.03.2023',
+      dateFrom: '01.01.2020',
+      dateTill: '01.03.2021',
       image: require('../assets/medi-pictures/penicillin.jpeg'),
       name: 'PENICILLIN Grünenthal 1 Mega',
       unit: 'Tabletten',
@@ -14,8 +14,8 @@ const medicationsData = [
     },
     {
       id: '2',
-      dateFrom: '12.11.2022',
-      dateTill: '02.03.2023',
+      dateFrom: '12.11.2021',
+      dateTill: '02.03.2022',
       image: require('../assets/medi-pictures/neocitran.jpeg'),
       name: 'NEOCITRAN Grippe Erkältung\nPlv Erw',
       unit: 'Beutel',
