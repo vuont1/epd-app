@@ -1,7 +1,7 @@
 let vaccinationData = [
-    { id: '1', name: 'Vaccine G', nextAppointment: '2023-12-01', currentDose: 4, totalDoses: 4, info: 'Additional information about Vaccine G', immunState: '2025-12-01' },
-    { id: '2', name: 'Vaccine H', nextAppointment: '2023-12-15', currentDose: 2, totalDoses: 4, info: 'Additional information about Vaccine H', immunState: '2025-12-01' },
-    { id: '3', name: 'Vaccine I', nextAppointment: '2023-12-10', currentDose: 1, totalDoses: 4, info: 'Additional information about Vaccine I', immunState: '2011-12-01' },
+    { id: '1', name: 'Tetanus-Impfung', nextAppointment: '02.05.2022', currentDose: 3, totalDoses: 3, info: 'Tetanus ist eine schwere bakterielle Infektion, die durch Wunden eindringen kann. Die Impfung schützt vor Tetanus, auch bekannt als Wundstarrkrampf. Auffrischungsimpfungen sind wichtig, um einen dauerhaften Schutz aufrechtzuerhalten.', immunState: '02.05.2032' },
+    { id: '2', name: 'Pneumokokken-Impfung', nextAppointment: '16.12.1999', currentDose: 3, totalDoses: 4, info: 'Die Pneumokokken-Impfung schützt vor Infektionen durch Streptococcus pneumoniae, die Lungenentzündung, Meningitis und andere Erkrankungen verursachen können. Sie ist besonders wichtig für ältere Erwachsene und Menschen mit bestimmten Gesundheitszuständen.', immunState: '60 Jahre Alt' },
+    { id: '3', name: 'Hepatitis-B-Impfung', nextAppointment: '06.07.2018', currentDose: 3, totalDoses: 3, info: 'Hepatitis B ist eine virale Infektion, die die Leber angreift und schwere Lebererkrankungen, Leberkrebs und sogar Tod verursachen kann. Das Virus wird durch den Kontakt mit Blut oder anderen Körperflüssigkeiten infizierter Personen übertragen, z.B. durch ungeschützten Geschlechtsverkehr oder gemeinsame Nutzung von Injektionsnadeln.', immunState: 'Langzeitschutz' },
   ];
   
   export default vaccinationData;

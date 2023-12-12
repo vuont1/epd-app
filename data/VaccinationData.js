@@ -1,10 +1,8 @@
 let vaccinationData = [
-  { id: '1', name: 'Vaccine A', nextAppointment: '2023-12-01', currentDose: 4, totalDoses: 4, info: 'Additional information about Vaccine A' },
-  { id: '2', name: 'Vaccine B', nextAppointment: '2023-12-15', currentDose: 2, totalDoses: 4, info: 'Additional information about Vaccine B' },
-  { id: '3', name: 'Vaccine C', nextAppointment: '2023-12-10', currentDose: 1, totalDoses: 4, info: 'Additional information about Vaccine C' },
-  { id: '4', name: 'Vaccine D', nextAppointment: '2023-12-22', currentDose: 2, totalDoses: 4, info: 'Additional information about Vaccine D' },
-  { id: '5', name: 'Vaccine E', nextAppointment: '2023-12-05', currentDose: 1, totalDoses: 4, info: 'Additional information about Vaccine E' },
-  { id: '6', name: 'Vaccine F', nextAppointment: '2023-12-18', currentDose: 2, totalDoses: 4, info: 'Additional information about Vaccine F' },
+  { id: '1', name: 'MMR-Impfung (Masern, Mumps, Röteln)', nextAppointment: '01.02.2024', currentDose: 1, totalDoses: 2, info: 'Die MMR-Impfung schützt vor Masern, Mumps und Röteln. Diese hochansteckenden Krankheiten können zu schwerwiegenden Komplikationen führen, insbesondere bei Kindern. Die Impfung ist Teil der üblichen Kinderimpfpläne und bietet einen langfristigen Schutz.' },
+  { id: '2', name: 'Influenza-Impfung (Grippeimpfung)', nextAppointment: '01.04.2024', currentDose: 0, totalDoses: 1, info: 'Die Grippeimpfung schützt vor saisonaler Grippe und wird jährlich empfohlen. Sie ist besonders wichtig für Risikogruppen wie ältere Menschen, Schwangere und Menschen mit chronischen Erkrankungen.' },
+  { id: '3', name: 'HPV-Impfung (Humane Papillomviren)', nextAppointment: '15.03.2024', currentDose: 2, totalDoses: 3, info: 'Die HPV-Impfung schützt vor bestimmten Stämmen des humanen Papillomavirus, die Gebärmutterhalskrebs, Genitalwarzen und andere Krebsarten verursachen können. Die Impfung wird normalerweise bei Jugendlichen empfohlen.' },
+  { id: '4', name: 'Hepatitis-A-Impfung', nextAppointment: '01.06.2024', currentDose: 1, totalDoses: 2, info: 'Hepatitis A ist eine entzündliche Lebererkrankung, die durch das Hepatitis-A-Virus verursacht wird, das hauptsächlich durch kontaminiertes Essen oder Wasser übertragen wird. Die Impfung schützt vor einer Hepatitis-A-Infektion und ist besonders wichtig für Personen, die in Regionen mit niedrigen Hygienestandards reisen oder arbeiten, sowie für Menschen mit einem erhöhten Expositionsrisiko.' },
 ];
 
 export default vaccinationData;

@@ -10,7 +10,7 @@ const AbgeschlosseneScreen = () => {
 
   const renderItem = ({ item }) => (
     <View style={{ marginVertical: 10, paddingHorizontal: 20 }}>
-      <Text style={styles.medicationName}>Name: {item.name}</Text>
+      <Text style={styles.medicationName}>{item.name}</Text>
       <Text style={styles.largeText}>Letze Impfung: {item.nextAppointment}</Text>
       <Text style={styles.largeText}>Immunität gewährleistet bis: {item.immunState}</Text>
 
