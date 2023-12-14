@@ -25,7 +25,6 @@ const OffeneScreen = () => {
   );
 
   const handleInfoPress = (item) => {
-     // Implement your logic for the "Info" button press
      console.log(`Show info for ${item.name}`);
      // Generate dummy data for the pop-up
      const dummyExtraData = {
@@ -50,7 +49,6 @@ const OffeneScreen = () => {
         renderItem={renderItem}
       />
 
-      {/* Modal for showing extra information */}
       <Modal
         animationType="slide"
         transparent={true}

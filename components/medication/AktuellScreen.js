@@ -38,15 +38,12 @@ const AktuellScreen = ({ navigation }) => {
   );
 
   const handleReminderPress = (medication) => {
-    // Implement your logic for the "Reminder" button press
     console.log(`Set reminder for ${medication.name}`);
     navigation.navigate('Reminder', { medication }); // Pass medication object as a route parameter
   };
 
   const handleInfoPress = (medication) => {
-    // Implement your logic for the "Info" button press
     console.log(`Show info for ${medication.name}`);
-    // Generate dummy data for the pop-up
     const dummyExtraData = {
       id: '1',
       name: medication.name,
@@ -69,7 +66,6 @@ const AktuellScreen = ({ navigation }) => {
         renderItem={renderItem}
       />
 
-      {/* Modal for showing extra information */}
       <Modal
         animationType="slide"
         transparent={true}

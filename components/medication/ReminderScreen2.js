@@ -17,7 +17,6 @@ const ReminderScreen2 = ({ navigation, route }) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
-    // Log the received data for testing
     console.log('Received data:', data);
     console.log('Received selectedDays:', data.selectedDays);
 
@@ -55,7 +54,7 @@ const ReminderScreen2 = ({ navigation, route }) => {
      Toast.show({
       type: 'success',
       text1: 'Erinnerung erstellt!',
-      visibilityTime: 3000, // 3 seconds
+      visibilityTime: 3000, 
       autoHide: true,
     });
 
@@ -204,7 +203,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 12,
-    width: '50%', // Adjust width as needed
+    width: '50%', 
     justifyContent: 'space-between',
   },
   dropdownText: {
@@ -234,7 +233,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    width: '50%', // Adjust width as needed
+    width: '50%', 
     fontSize: 18,
   },
    // BottomButton

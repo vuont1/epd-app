@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Picker } from '@react-native-picker/picker'; // Import Picker from the correct package
+import { Picker } from '@react-native-picker/picker'; 
 
 const ReminderScreen = ({ navigation, route }) => {
   const { medication } = route.params; // Retrieve the passed medication object
-  // Now you can use the medication object in this screen
   console.log('Received medication:', medication);
 
   // Bestimmte Tage
@@ -67,6 +66,7 @@ const ReminderScreen = ({ navigation, route }) => {
     }
   };
 
+  // Start date cant be set in the future
   const handleStartDateChange = (chosenDate) => {
     if (chosenDate > chosenEndDate) {
       setChosenDate(chosenEndDate);
@@ -75,9 +75,10 @@ const ReminderScreen = ({ navigation, route }) => {
     }
   };
 
+
+  // End date cant be set in the past
   const handleEndDateChange = (selectedEndDate) => {
     if (selectedEndDate < chosenDate) {
-      console.log("End date can't be earlier than start date");
       setChosenEndDate(chosenDate)
     } else {
       setChosenEndDate(selectedEndDate);
@@ -175,7 +176,6 @@ const ReminderScreen = ({ navigation, route }) => {
           visible={showDatePicker}
           animationType="slide"
           transparent={true}
-          onRequestClose={() => setShowDatePicker(false)}
         >
           <View style={styles.modalContainer}>
             <View style={styles.datePickerContainer}>
@@ -184,7 +184,6 @@ const ReminderScreen = ({ navigation, route }) => {
                 mode="date"
                 display="spinner" 
                 onChange={(event, selectedDate) => {
-                  setShowDatePicker(false);
                   if (selectedDate) {
                     handleStartDateChange(selectedDate);
                   }
@@ -202,7 +201,6 @@ const ReminderScreen = ({ navigation, route }) => {
           visible={showEndDatePicker}
           animationType="slide"
           transparent={true}
-          onRequestClose={() => setShowEndDatePicker(false)}
         >
           <View style={styles.modalContainer}>
             <View style={styles.datePickerContainer}>
@@ -211,7 +209,6 @@ const ReminderScreen = ({ navigation, route }) => {
                 mode="date"
                 display="spinner" // For Android, use spinner display
                 onChange={(event, selectedDate) => {
-                  setShowEndDatePicker(false);
                   if (selectedDate) {
                     handleEndDateChange(selectedDate); // Call the function to handle end date change
                   }

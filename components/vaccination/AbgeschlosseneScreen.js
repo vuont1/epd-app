@@ -25,7 +25,6 @@ const AbgeschlosseneScreen = () => {
   );
 
   const handleInfoPress = (item) => {
-     // Implement your logic for the "Info" button press
      console.log(`Show info for ${item.immunState}`);
      // Generate dummy data for the pop-up
      const dummyExtraData = {
