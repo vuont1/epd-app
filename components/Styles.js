@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
   },
   medicationItem: {
     flexDirection: 'row',
-    alignItems: 'center',
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
   medicationName: {
     fontWeight: 'bold',
     fontSize: 20,
-    paddingBottom: 3
+    paddingBottom: 3,
   },
   largeText: {
     fontSize: 18,

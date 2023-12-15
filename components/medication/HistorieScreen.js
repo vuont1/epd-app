@@ -10,6 +10,7 @@ const HistorieScreen = () => {
 
   const renderItem = ({ item }) => (
     <View style={styles.medicationItem}>
+      <Image source={item.image} style={styles.medicationImage} />
       <View style={styles.medicationDetails}>
         <View style={styles.medicationInfo}>
           <Text style={styles.medicationName}>{item.name}</Text>
