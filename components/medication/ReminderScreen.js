@@ -234,7 +234,6 @@ const ReminderScreen = ({ navigation, route }) => {
                 selectedValue={selectedInterval}
                 onValueChange={(itemValue) => {
                   setSelectedInterval(itemValue);
-                  setShowIntervalPicker(false); // Close modal when a value is selected
 
                   // Reset the others
                   setShowDays(false)
@@ -270,7 +269,6 @@ const ReminderScreen = ({ navigation, route }) => {
                 selectedValue={selectedDaysInterval}
                 onValueChange={(itemValue) => {
                   setSelectedDaysInterval(itemValue);
-                  setShowDaysPicker(false); // Close modal when a value is selected
 
                   // Reset the others
                   setShowDays(false)

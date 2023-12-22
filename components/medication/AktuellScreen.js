@@ -45,7 +45,7 @@ const AktuellScreen = ({ navigation }) => {
   const handleInfoPress = (medication) => {
     console.log(`Show info for ${medication.name}`);
     const dummyExtraData = {
-      id: '1',
+      id: medication.id,
       name: medication.name,
       description: medication.description,
     };
