@@ -21,7 +21,7 @@ const HistorieScreen = () => {
             style={[styles.button, styles.infoButton]}
             onPress={() => handleInfoPress(item)}
           >
-            <Text style={styles.buttonText}>More Info</Text>
+            <Text style={styles.buttonText}>Mehr Info</Text>
           </TouchableOpacity>
         </View>
       </View>
