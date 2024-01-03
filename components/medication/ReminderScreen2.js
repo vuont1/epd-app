@@ -73,7 +73,7 @@ const ReminderScreen2 = ({ navigation, route }) => {
   };
 
   const handleQuantityChange = (text) => {
-    if (/^\d+$/.test(text)) {
+    if (/^\d*$/.test(text)) {
       setQuantity(text);
     }
   };

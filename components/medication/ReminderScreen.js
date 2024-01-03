@@ -53,10 +53,6 @@ const ReminderScreen = ({ navigation, route }) => {
       setSelectedDays([...selectedDays, day]);
 
       // Reset the others
-      setChosenDate(new Date());
-      setShowDatePicker(false);
-      setChosenEndDate(new Date());
-      setShowEndDatePicker(false);
       setShowIntervalPicker(false);
       setSelectedInterval(false);
       setShowDaysPicker(false);
@@ -188,7 +184,7 @@ const ReminderScreen = ({ navigation, route }) => {
                     handleStartDateChange(selectedDate);
                   }
                 }}
-                style={styles.datePicker} // Customize the picker's style
+                style={styles.datePicker} 
               />
             </View>
             <TouchableOpacity style={styles.closeModalButton} onPress={() => setShowDatePicker(false)}>
@@ -213,7 +209,7 @@ const ReminderScreen = ({ navigation, route }) => {
                     handleEndDateChange(selectedDate); // Call the function to handle end date change
                   }
                 }}
-                style={styles.datePicker} // Customize the picker's style
+                style={styles.datePicker} 
               />
             </View>
             <TouchableOpacity style={styles.closeModalButton} onPress={() => setShowEndDatePicker(false)}>
@@ -238,7 +234,6 @@ const ReminderScreen = ({ navigation, route }) => {
                   // Reset the others
                   setShowDays(false)
                   setSelectedDays([]);
-                  setShowDaysPicker(false);
                   setSelectedDaysInterval(false);
                   setChosenTime(new Date());
                   setShowTimePicker(false);
@@ -313,10 +308,6 @@ const ReminderScreen = ({ navigation, route }) => {
                     // Reset the others
                     setShowDays(false);
                     setSelectedDays([]);
-                    setChosenDate(new Date());
-                    setShowDatePicker(false);
-                    setChosenEndDate(new Date());
-                    setShowEndDatePicker(false);
                     setShowIntervalPicker(false);
                     setSelectedInterval(false);
                     setShowDaysPicker(false);
